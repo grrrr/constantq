@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E90C39110E05B3FC00E8F317 /* constantq.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E90C39100E05B3FC00E8F317 /* constantq.hpp */; };
 		E98573340D9E51A800682171 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E98573330D9E51A800682171 /* main.cpp */; };
 		E98573350D9E51A800682171 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E98573330D9E51A800682171 /* main.cpp */; };
 		E98573D00D9E603400682171 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E98573CF0D9E603400682171 /* libfftw3f.a */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		D2AAC09D05546B4700DB518D /* constantq.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = constantq.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
+		E90C39100E05B3FC00E8F317 /* constantq.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = constantq.hpp; path = "../../projects/audiofeatures++/constantq.hpp"; sourceTree = SOURCE_ROOT; };
 		E98573330D9E51A800682171 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E98573CF0D9E603400682171 /* libfftw3f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3f.a; path = /usr/local/lib/libfftw3f.a; sourceTree = "<absolute>"; };
 		E98C3076078D948800EC0264 /* vecLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vecLib.framework; path = /System/Library/Frameworks/vecLib.framework; sourceTree = "<absolute>"; };
@@ -100,6 +102,7 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E90C39100E05B3FC00E8F317 /* constantq.hpp */,
 				E99A3B760D35508600E692EF /* Info.plist */,
 				E98573330D9E51A800682171 /* main.cpp */,
 			);
@@ -113,6 +116,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90C39110E05B3FC00E8F317 /* constantq.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
