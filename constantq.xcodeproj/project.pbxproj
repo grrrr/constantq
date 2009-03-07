@@ -32,14 +32,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D2AAC09D05546B4700DB518D /* constantq.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = constantq.pd_darwin; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC09D05546B4700DB518D /* constantq~.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "constantq~.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90C39100E05B3FC00E8F317 /* constantq.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = constantq.hpp; path = "../../projects/audiofeatures++/constantq.hpp"; sourceTree = SOURCE_ROOT; };
 		E98573330D9E51A800682171 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E98573CF0D9E603400682171 /* libfftw3f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3f.a; path = /usr/local/lib/libfftw3f.a; sourceTree = "<absolute>"; };
 		E98C3076078D948800EC0264 /* vecLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vecLib.framework; path = /System/Library/Frameworks/vecLib.framework; sourceTree = "<absolute>"; };
 		E9974DFA0770750400206F68 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		E9974DFB0770750400206F68 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
-		E9974E53077083C700206F68 /* constantq.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = constantq.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9974E53077083C700206F68 /* constantq~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "constantq~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99A3B760D35508600E692EF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E99A3C6B0D35525C00E692EF /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,8 +71,8 @@
 		034768DDFF38A45A11DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC09D05546B4700DB518D /* constantq.pd_darwin */,
-				E9974E53077083C700206F68 /* constantq.mxo */,
+				D2AAC09D05546B4700DB518D /* constantq~.pd_darwin */,
+				E9974E53077083C700206F68 /* constantq~.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -137,7 +137,7 @@
 			);
 			name = "pd static";
 			productName = xsample;
-			productReference = D2AAC09D05546B4700DB518D /* constantq.pd_darwin */;
+			productReference = D2AAC09D05546B4700DB518D /* constantq~.pd_darwin */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
 		E9974E52077083C700206F68 /* max static */ = {
@@ -155,7 +155,7 @@
 			);
 			name = "max static";
 			productName = "Max xsample static";
-			productReference = E9974E53077083C700206F68 /* constantq.mxo */;
+			productReference = E9974E53077083C700206F68 /* constantq~.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -216,6 +216,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				EXECUTABLE_EXTENSION = pd_darwin;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FLEXT_SYS=2",
@@ -230,7 +231,6 @@
 				LIBRARY_STYLE = BUNDLE;
 				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = 10.3;
-				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_LDFLAGS = (
 					"-lflext-pd_sd",
 					"-undefined",
@@ -254,6 +254,7 @@
 					"$(inherited)",
 					"FLEXT_SYS=2",
 				);
+				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PD)/src",
@@ -303,6 +304,7 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FLEXT_SYS=1",
@@ -318,7 +320,6 @@
 				INSTALL_PATH = "/Library/Application Support/Cycling 74/externals/flext";
 				LIBRARY_SEARCH_PATHS = "$(flext)/build";
 				LIBRARY_STYLE = DYNAMIC;
-				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_LDFLAGS = "-lflext-max_sd";
 				OTHER_REZFLAGS = "";
 				SECTORDER_FLAGS = "";
@@ -407,13 +408,16 @@
 					"/Users/thomas/Develop/projects/audiofeatures++",
 					"/Users/thomas/Develop/packs/blitz-0.9",
 				);
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = "constantq~";
 			};
 			name = Development;
 		};
 		E9A5BC940A33819900AD9F03 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_OPENMP_SUPPORT = YES;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
@@ -428,11 +432,14 @@
 					"FLEXT_ATTRIBUTES=1",
 				);
 				GCC_STRICT_ALIASING = YES;
+				GCC_UNROLL_LOOPS = YES;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = (
 					"/Users/thomas/Develop/projects/audiofeatures++",
 					"/Users/thomas/Develop/packs/blitz-0.9",
 				);
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = "constantq~";
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Deployment;
 		};
