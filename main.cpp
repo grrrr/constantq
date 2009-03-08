@@ -36,11 +36,8 @@ static T hz2bark(T f)
     return log(f1+sqrt(f1*f1+1))*6.;
 }
 
-template<typename T>
-static T bark2hz(T b)
-{
-    return (exp(b/6.)-exp(b/-6.))*300.;
-}
+template<typename T> 
+static T bark2hz(T b) { return (exp(b/6.)-exp(b/-6.))*300.; }
 
 template<typename T>
 static T hz2mel(T f) { return hz2bark(f)*100.; }
@@ -107,31 +104,14 @@ protected:
         FLEXT_CADDATTR_VAR(c,"rate",rate,ms_rate);       
     }
 
-#if 0    
-    virtual bool CbFinalize()
-    {
-        if(flext_base::CbFinalize()) {
-            refreshkernel();
-            return true;
-        }
-        else
-            return false;
-    }
-#endif
-    
     virtual bool CbDsp()
     {
-#ifdef FLEXT_DEBUG
-        post("DSP");
-#endif
-    
         if(srate != Samplerate()) {
             srate = Samplerate();
             refreshkernel();
         }
         else
             resetbuffer();
-
         return true;
     }
     
@@ -240,7 +220,7 @@ protected:
             float bark = res*(b+0.5);
             freqs(b) = bark2hz(bark);
             float odiv = tanh(bark/6.)*(log(64.)/res);
-            float pow2n = pow(2,1./odiv);
+            float pow2n = pow(2.,1./odiv);
             qfactors(b) = sqrt(pow2n)/(pow2n-1.);
         }
     }
@@ -379,17 +359,6 @@ private:
                 qf(i) = 1./(freqs(i)/freqs(i-1)-1.);
             }
             
-#ifdef FLEXT_DEBUG       
-            cerr << "F ";
-            for(int i = 0; i < freqs.length(0); ++i)
-                cerr << freqs(i) << " ";
-            cerr << endl;
-            cerr << "Q ";
-            for(int i = 0; i < qf.length(0); ++i)
-                cerr << qf(i) << " ";
-            cerr << endl;
-#endif
-
             Window::Window<Window::Boxcar<t_sample> > boxcar;
             cq = new ConstantQ<t_sample,false>(srate,freqs,qf,window?*window:boxcar,threshold,wndalign,max(minhop,Blocksize()));
         }
