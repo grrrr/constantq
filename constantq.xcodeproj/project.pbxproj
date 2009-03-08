@@ -14,6 +14,8 @@
 		E98573D10D9E603500682171 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E98573CF0D9E603400682171 /* libfftw3f.a */; };
 		E98C3077078D948800EC0264 /* vecLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E98C3076078D948800EC0264 /* vecLib.framework */; };
 		E98C3078078D948800EC0264 /* vecLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E98C3076078D948800EC0264 /* vecLib.framework */; };
+		E99346B30F6342A700300732 /* fft.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E99346B10F6342A700300732 /* fft.hpp */; };
+		E99346B40F6342A700300732 /* window.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E99346B20F6342A700300732 /* window.hpp */; };
 		E9974E5B0770851500206F68 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9974DFA0770750400206F68 /* MaxAPI.framework */; };
 		E9974E5C0770851700206F68 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9974DFB0770750400206F68 /* MaxAudioAPI.framework */; };
 		E99A3B770D35508600E692EF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99A3B760D35508600E692EF /* Info.plist */; };
@@ -37,6 +39,8 @@
 		E98573330D9E51A800682171 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E98573CF0D9E603400682171 /* libfftw3f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3f.a; path = /usr/local/lib/libfftw3f.a; sourceTree = "<absolute>"; };
 		E98C3076078D948800EC0264 /* vecLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vecLib.framework; path = /System/Library/Frameworks/vecLib.framework; sourceTree = "<absolute>"; };
+		E99346B10F6342A700300732 /* fft.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fft.hpp; path = "../../projects/audiofeatures++/fft.hpp"; sourceTree = SOURCE_ROOT; };
+		E99346B20F6342A700300732 /* window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = window.hpp; path = "../../projects/audiofeatures++/window.hpp"; sourceTree = SOURCE_ROOT; };
 		E9974DFA0770750400206F68 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		E9974DFB0770750400206F68 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		E9974E53077083C700206F68 /* constantq~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "constantq~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +106,8 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E99346B10F6342A700300732 /* fft.hpp */,
+				E99346B20F6342A700300732 /* window.hpp */,
 				E90C39100E05B3FC00E8F317 /* constantq.hpp */,
 				E99A3B760D35508600E692EF /* Info.plist */,
 				E98573330D9E51A800682171 /* main.cpp */,
@@ -117,6 +123,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E90C39110E05B3FC00E8F317 /* constantq.hpp in Headers */,
+				E99346B30F6342A700300732 /* fft.hpp in Headers */,
+				E99346B40F6342A700300732 /* window.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,7 +441,7 @@
 				);
 				GCC_STRICT_ALIASING = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = (
 					"/Users/thomas/Develop/projects/audiofeatures++",
 					"/Users/thomas/Develop/packs/blitz-0.9",
