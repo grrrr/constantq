@@ -425,7 +425,9 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_OPENMP_SUPPORT = YES;
+				DEPLOYMENT_LOCATION = NO;
+				DSTROOT = /;
+				ENABLE_OPENMP_SUPPORT = NO;
 				GCC_ALTIVEC_EXTENSIONS = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
@@ -446,6 +448,7 @@
 					"/Users/thomas/Develop/projects/audiofeatures++",
 					"/Users/thomas/Develop/packs/blitz-0.9",
 				);
+				INSTALL_PATH = "/Library/Application Support/Cycling '74/externals/flext";
 				PRODUCT_NAME = "constantq~";
 				STRIP_INSTALLED_PRODUCT = NO;
 			};

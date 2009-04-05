@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>$(PROJECT_NAME)</string>
+	<string>constantq~</string>
 	<key>CFBundleIdentifier</key>
 	<string>org.grrrr.ext.$(PROJECT_NAME)</string>
 	<key>CFBundleInfoDictionaryVersion</key>

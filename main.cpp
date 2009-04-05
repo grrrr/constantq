@@ -55,9 +55,13 @@ public:
     constantq()
         : cq(NULL),offset(0)
         , threshold(0.001),wndalign(1),minhop(0)
-        , srate(0),rate(-1)
+        , srate(Samplerate()),rate(-1)
         , buf(NULL),bufupd(true)
+        , window(NULL)
     {
+        wndname(1);
+        SetSymbol(wndname[0],sym_hann);
+    
         AddInSignal();
         AddOutList();
 
