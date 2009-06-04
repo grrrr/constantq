@@ -341,8 +341,7 @@ private:
     {
         int len = cq?cq->length():0;
         
-        delete cq;
-        
+        ConstantQ<t_sample,false> *ocq = cq;        
         const int nfreqs = freqs.length(0);
         if(nfreqs) {
             Array<t_sample,1> qf(nfreqs);
@@ -364,10 +363,15 @@ private:
             }
             
             Window::Window<Window::Boxcar<t_sample> > boxcar;
+
+//            Unfortunately the following Unlock/Lock doesn't work because blitz++ calls memory functions
+//            Unlock();
             cq = new ConstantQ<t_sample,false>(srate,freqs,qf,window?*window:boxcar,threshold,wndalign,max(minhop,Blocksize()));
+//            Lock();
         }
         else
-            cq = NULL;
+            cq = NULL;            
+        delete ocq;
             
         if(cq && cq->length() != len)
             resetbuffer();
