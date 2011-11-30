@@ -23,9 +23,15 @@ $LastChangedBy$
 #endif
 
 #include "constantq.hpp"
+#include <list>
+#include <blitz/array/convolve.h>
+
+#define BANDED false
 
 namespace { // anonymous namespace
 
+template<typename T> 
+static T sqr(T x) { return x*x; }
 
 template<typename T>
 static T hz2bark(T f)
@@ -45,6 +51,34 @@ static T hz2mel(T f) { return hz2bark(f)*100.; }
 template<typename T>
 static T mel2hz(T m) { return bark2hz(m/100.); }
 
+template<typename T>
+static T terhardt(T fhz)
+{
+    T f = fhz*0.001;
+    return pow(f,T(-0.8))*-3.64+exp(sqr(f-3.3)*-0.6)-sqr(sqr(f))*1.e-3;
+}
+
+template<typename T>
+static T db2pow(T z) { return pow(10.,z/20.); }
+
+template<typename T>
+static T pow2db(T z) { return log10(z)*20.; }
+
+template<typename T>
+static T frqmask(T dz,T i = 0.)
+{
+    return (15.81-i)+(dz+0.474)*7.5-sqrt(sqr(dz+0.474)+1.)*(17.5-i)-10.;
+}
+
+#if 0
+BZ_NAMESPACE(blitz)
+BZ_DECLARE_FUNCTION(hz2mel)
+BZ_DECLARE_FUNCTION(mel2hz)
+BZ_DECLARE_FUNCTION(db2pow)
+BZ_DECLARE_FUNCTION(pow2db)
+BZ_DECLARE_FUNCTION(terhardt)
+BZ_NAMESPACE_END
+#endif
 
 class constantq
     : public flext_dsp
@@ -58,6 +92,7 @@ public:
         , srate(Samplerate()),rate(-1)
         , buf(NULL),bufupd(true)
         , window(NULL)
+        , fmasking(false),tmasking(false),loudness(false)
     {
         wndname(1);
         SetSymbol(wndname[0],sym_hann);
@@ -81,6 +116,13 @@ protected:
 
     static void setup(t_classid c)
     {
+        post("constantq~ - Constant-Q audio analysis");
+        post("(c)2008-2011 grrrr.org");
+    #ifdef FLEXT_DEBUG
+        post("Debug version, compiled on " __DATE__ " " __TIME__);
+    #endif
+        post("");
+
         sym_reset = MakeSymbol("reset");
 
         sym_triangular = MakeSymbol("triangular");
@@ -106,6 +148,10 @@ protected:
         FLEXT_CADDATTR_VAR1(c,"wndalign",wndalign);
         FLEXT_CADDATTR_VAR1(c,"minhop",minhop);
         FLEXT_CADDATTR_VAR(c,"rate",rate,ms_rate);       
+
+        FLEXT_CADDATTR_VAR1(c,"fmasking",fmasking);       
+        FLEXT_CADDATTR_VAR1(c,"tmasking",tmasking);       
+        FLEXT_CADDATTR_VAR1(c,"loudness",loudness);       
     }
 
     virtual bool CbDsp()
@@ -143,6 +189,12 @@ protected:
             tmr.Now(); // trigger analysis
     }
     
+    static void print(const Array<t_sample,1> &a)
+    {
+        for(int i = 0; i < a.size(); ++i)
+            cerr << a(i) << ' ';
+    }
+    
     void m_bang(void * = NULL)
     {
         if(!cq) return;
@@ -152,18 +204,71 @@ protected:
         // analyze
         Array<t_sample,1> cqspec(abs((*cq)(ref)));
         
+        if(loudness)
+            cqspec *= loud;
+            
+        if(fmasking) {
+            Array<t_sample,1> mask(cqspec.shape());
+            for(int i = 0; i < cqspec.size(); ++i) {
+                Range const &r = fmask_ranges[i];
+                mask(i) = sum(fmask(i,r)*cqspec(r));
+            }
+
+//            cerr << "cq: "; print(cqspec); cerr << endl;
+//            cerr << "mask: "; print(mask); cerr << endl;
+
+            cqspec *= (cqspec >= mask);
+
+//            cerr << "res: "; print(cqspec); cerr << endl;
+//            cerr << endl;
+        }
+            
+        if(tmasking) {
+            const double bmsk = 10.,fmsk = 100.;  // backward and forward masking times (ms)
+            const double thrdb = -30.,mindb = -100.;
+            
+            const double btm = bmsk*thrdb/mindb,ftm = fmsk*thrdb/mindb;
+            const TMem cur(cqspec.copy());
+            const double tfocus = cur.time-btm;
+            
+            // discard all elements too old
+            while(frmem.size() && frmem.front().time < tfocus-ftm)
+                frmem.pop_front();
+
+            frmem.push_back(cur);
+
+            Array<t_sample,1> mask(cqspec.shape());
+            mask = 0;
+            
+            for(std::list<TMem>::const_iterator it = frmem.begin(); it != frmem.end(); ++it) {
+                const double t = it->time-tfocus;
+                const double incl = t < 0?-fmsk:bmsk;
+                const double db = t*mindb/incl;
+                mask = max(mask,it->mem*db2pow(db));
+            }
+
+            cqspec *= (cqspec >= mask);
+        }
+        
         if(buf && buf->Ok() && buf->Valid()) {
+            // indented block for lock object
             {
                 buffer::Locker buflock(*buf);
                 buf->Update();
                 
-                Array<t_sample,2> barr(buf->Data(),TinyVector<int,2>(buf->Frames(),buf->Channels()),neverDeleteData);
-                Range rng(0,min(cqspec.size(),buf->Frames())-1);
+                Array<buffer::Element,2> barr(buf->Data(),TinyVector<int,2>(buf->Frames(),buf->Channels()),neverDeleteData);
+                int hi = min(cqspec.size(),buf->Frames());
+#if 0
+                // for whatever reason, this doesn't work with the buffer::Element type
+                Range rng(0,hi-1);
                 barr(rng,0) = cqspec(rng);
-                
+#else
+                for(int i = 0; i < hi; ++i) barr(i,0) = cqspec(i);
+#endif
+                           
                 buf->Dirty(bufupd);
             }
-            // unlock before bang
+            // unlocked before bang
             ToOutBang(0);
         }
         else {
@@ -315,13 +420,32 @@ protected:
     float threshold;
     int wndalign,minhop;
     float srate;
-    ConstantQ<t_sample,false> *cq;
+    ConstantQ<t_sample,BANDED> *cq;
     Timer tmr;
     double rate;
     buffer *buf;
     bool bufupd;
     AtomList wndname;
     Window::Base<t_sample> *window;
+    
+    bool fmasking,tmasking,loudness;
+    Array<t_sample,1> loud,tmask_kernel;
+    Array<t_sample,2> fmask;
+    std::vector<Range> fmask_ranges;
+
+    struct TMem
+    {
+        TMem(const Array<t_sample,1> &r)
+        : time(flext::GetTime()*1000.)
+        {
+            mem.reference(r);
+        }
+    
+        double time;
+        Array<t_sample,1> mem;
+    };
+
+    std::list<TMem> frmem;
     
 private:
 
@@ -340,8 +464,8 @@ private:
     void refreshkernel()
     {
         int len = cq?cq->length():0;
-        
-        ConstantQ<t_sample,false> *ocq = cq;        
+        int i,j;
+        ConstantQ<t_sample,BANDED> *ocq = cq;        
         const int nfreqs = freqs.length(0);
         if(nfreqs) {
             Array<t_sample,1> qf(nfreqs);
@@ -356,7 +480,6 @@ private:
                 // determination of q from frequencies 
                 // \TODO re-check this!!
                 qf(0) = 1./(freqs(1)/freqs(0)-1);
-                int i;
                 for(i = 1; i < nfreqs-1; ++i)
                     qf(i) = 1./(sqrt(freqs(i+1)/freqs(i-1))-1);
                 qf(i) = 1./(freqs(i)/freqs(i-1)-1.);
@@ -364,9 +487,9 @@ private:
             
             Window::Window<Window::Boxcar<t_sample> > boxcar;
 
-//            Unfortunately the following Unlock/Lock doesn't work because blitz++ calls memory functions
+//            Unfortunately the following Unlock/Lock is not allowed because blitz++ calls memory functions
 //            Unlock();
-            cq = new ConstantQ<t_sample,false>(srate,freqs,qf,window?*window:boxcar,threshold,wndalign,max(minhop,Blocksize()));
+            cq = new ConstantQ<t_sample,BANDED>(srate,freqs,qf,window?*window:boxcar,threshold,wndalign,max(minhop,Blocksize()));
 //            Lock();
         }
         else
@@ -375,7 +498,53 @@ private:
             
         if(cq && cq->length() != len)
             resetbuffer();
-            
+        
+        // refresh loudness mask
+        loud.resize(nfreqs);
+        for(i = 0; i < nfreqs; ++i)
+            loud(i) = db2pow(terhardt(freqs(i)));
+        
+        // refresh frequency (simultaneous) masking
+        fmask.resize(nfreqs,nfreqs);
+        fmask_ranges.resize(nfreqs);
+        for(i = 0; i < nfreqs; ++i) {
+            double const bi = hz2bark(freqs(i));
+            for(j = 0; j < nfreqs; ++j) {
+                double const bj = hz2bark(freqs(j));
+                fmask(i,j) = db2pow(frqmask(bj-bi));
+            }
+            fmask_ranges[i] = Range::all();
+        }
+
+#if 0
+        // refresh temporal (sequential) masking
+        const double bmsk = 10.,fmsk = 100.;  // backward and forward masking times (ms)
+        const double thrdb = -60.,mindb = -100.;
+        const double thresh = 1.-thrdb/mindb;
+        const double width = log(thresh)/-M_LN2;
+        const double frlen = cq->hopsize()/srate*1000.;
+        frpre = int(width*bmsk/frlen+0.5);
+        frpost = int(width*fmsk/frlen+0.5);
+        tmask_kernel.resize(frpost+frpre+1);
+        for(i = -frpost; i <= frpre; ++i) {
+            double const incl = i < 0?-fmsk:bmsk;
+            tmask_kernel(i+frpost) = pow(10.,(pow(2.,i/incl*frlen)-1.)*(mindb/-20.));
+        }
+        tmask_kernel /= sum(tmask_kernel); // normalize
+
+        frmem.resize(tmask_kernel.size());
+        if(frmem.size()) {
+            // set first frame to 0
+            frmem[0].resize(nfreqs);
+            frmem[0] = 0;
+            // let remaining frames be references to first
+            for(i = 1; i < frmem.size(); ++i) 
+                frmem[i].reference(frmem[0]);
+        }
+        frmemix = 0;
+#endif
+
+        // signal success
         ToOutAnything(GetOutAttr(),sym_reset,0,NULL);
     }
 
@@ -399,6 +568,9 @@ private:
     FLEXT_ATTRGET_V(wndname)
     FLEXT_ATTRVAR_I(minhop)
     FLEXT_CALLBACK_T(m_bang)
+    FLEXT_ATTRVAR_B(fmasking)
+    FLEXT_ATTRVAR_B(tmasking)
+    FLEXT_ATTRVAR_B(loudness)
 };
 
 const t_symbol *constantq::sym_reset;
