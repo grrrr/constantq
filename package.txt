@@ -1,0 +1,3 @@
+NAME=constantq~
+SRCS=main.cpp
+LIBS=-lfftw3f

@@ -22,7 +22,7 @@ $LastChangedBy$
 #undef _REENTRANT
 #endif
 
-#include "constantq.hpp"
+#include "headers/constantq.hpp"
 #include <list>
 #include <blitz/array/convolve.h>
 
@@ -32,6 +32,9 @@ namespace { // anonymous namespace
 
 template<typename T> 
 static T sqr(T x) { return x*x; }
+
+template<typename T,typename T2> 
+static T min(T x,T2 y) { return x<y?x:y; }
 
 template<typename T>
 static T hz2bark(T f)
