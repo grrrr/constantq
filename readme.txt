@@ -1,4 +1,4 @@
-constantq~ - Constant-Q spectral analysis
+constantq~ - spectral analysis for Pure Data and Max
 
 Copyright (c) 2010-2012 Thomas Grill (gr@grrrr.org)
 For information on usage and redistribution, and for a DISCLAIMER OF ALL
@@ -21,19 +21,19 @@ IMPORTANT INFORMATION for all PD users:
 Put the pd-msvc/constantq~.dll, pd-linux/constantq~.pd_linux or pd-darwin/constantq~.pd_darwin file
 into the extra folder of the PD installation.
 
-Put the help-constantq~.pd file into the doc\5.reference subfolder of your PD installation.
+Put the constantq~-help.pd file into the doc\5.reference subfolder of your PD installation.
 
 ----------------------------------------------------------------------------
 
 IMPORTANT INFORMATION for all Max/MSP users:
 
-For Mac OSX put the max-osx/constantq~.mxd file into the folder 
-/Library/Application Support/Cycling '74/externals
+For Mac OSX put the max-darwin/constantq~.mxo file into the folder 
+/Applications/Max*/Cycling '74/externals
 
 For Windows put the max-msvc\ constantq~.mxe file into the folder
 C:\program files\common files\Cycling '74\externals (english version)
 
-Put the constantq~.help file into the max-help folder.
+Put the constantq~.maxhelp file into the max-help folder.
 
 ============================================================================
 
@@ -45,6 +45,13 @@ You will need the flext C++ layer for PD and Max/MSP externals to compile this.
 See http://grrrr.org/ext/flext
 Download, install and compile the package.
 Afterwards you can proceed with building this external.
+
+Further dependencies are
+- blitz++ (http://blitz.sourceforge.net)
+- FFTW3 (http://www.fftw.org)
+
+Please note that in terms of compilation blitz++ is a very demanding piece of software.
+Older compilers are regularly choking on it. Reported to work flawlessly is e.g. clang >= 3.1.
 
 
 pd/Max - Windows - Microsoft Visual C, Borland C++, MinGW:
