@@ -60,9 +60,8 @@
 		E9974DFB0770750400206F68 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		E9974E53077083C700206F68 /* constantq~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "constantq~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99A3B760D35508600E692EF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E99A3C6B0D35525C00E692EF /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		E9E8B1C214366B7B008F12F7 /* main_msg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main_msg.cpp; sourceTree = "<group>"; };
-		E9E8B1FB14366F4E008F12F7 /* constantq.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = constantq.mxo; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9E8B1FB14366F4E008F12F7 /* constantq~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "constantq~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E8B1FC14366F4E008F12F7 /* Info msg.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info msg.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,7 +105,7 @@
 			children = (
 				D2AAC09D05546B4700DB518D /* constantq~.pd_darwin */,
 				E9974E53077083C700206F68 /* constantq~.mxo */,
-				E9E8B1FB14366F4E008F12F7 /* constantq.mxo */,
+				E9E8B1FB14366F4E008F12F7 /* constantq~.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,7 +113,6 @@
 		0867D691FE84028FC02AAC07 /* xsample */ = {
 			isa = PBXGroup;
 			children = (
-				E99A3C6B0D35525C00E692EF /* readme.txt */,
 				08FB77ACFE841707C02AAC07 /* Source */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DDFF38A45A11DB9C8B /* Products */,
@@ -213,7 +211,7 @@
 			);
 			name = "max static msg";
 			productName = "Max xsample static";
-			productReference = E9E8B1FB14366F4E008F12F7 /* constantq.mxo */;
+			productReference = E9E8B1FB14366F4E008F12F7 /* constantq~.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -223,7 +221,11 @@
 			isa = PBXProject;
 			buildConfigurationList = E9A5BC920A33819900AD9F03 /* Build configuration list for PBXProject "constantq" */;
 			compatibilityVersion = "Xcode 2.4";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 0867D691FE84028FC02AAC07 /* xsample */;
 			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products */;
 			projectDirPath = "";
