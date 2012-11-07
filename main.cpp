@@ -1,7 +1,7 @@
 /*
-constantq~ - constant-q analysis
+constantq~ - spectral analysis
 
-Copyright (c) 2008-2009 Thomas Grill (gr@grrrr.org)
+Copyright (c) 2008-2012 Thomas Grill (gr@grrrr.org)
 For information on usage and redistribution, and for a DISCLAIMER OF ALL
 WARRANTIES, see the file, "license.txt," in this distribution.  
 
@@ -90,7 +90,7 @@ class constantq
     
 public:
     constantq()
-        : cq(NULL),offset(0)
+        : cq(NULL),have(0),sigoffs(0)
         , threshold(0.001),wndalign(1),minhop(0)
         , srate(Samplerate()),rate(-1)
         , buf(NULL),bufupd(true)
@@ -103,7 +103,7 @@ public:
         AddInSignal();
         AddOutList();
 
-	    FLEXT_ADDTIMER(tmr,m_bang);
+	    FLEXT_ADDTIMER(tmr,m_timer);
     }
     
     ~constantq()
@@ -114,19 +114,20 @@ public:
 
 protected:
 
-    static const t_symbol *sym_reset;
+    static const t_symbol *sym_reset,*sym_offset;
     static const t_symbol *sym_triangular,*sym_hamming,*sym_hann,*sym_cosine,*sym_bartlett,*sym_blackman;
 
     static void setup(t_classid c)
     {
-        post("constantq~ - Constant-Q audio analysis");
-        post("(c)2008-2011 grrrr.org");
+        post("constantq~ - spectral analysis");
+        post("(c)2008-2012 grrrr.org");
     #ifdef FLEXT_DEBUG
         post("Debug version, compiled on " __DATE__ " " __TIME__);
     #endif
         post("");
 
         sym_reset = MakeSymbol("reset");
+        sym_offset = MakeSymbol("offset");
 
         sym_triangular = MakeSymbol("triangular");
         sym_hamming = MakeSymbol("hamming");
@@ -174,22 +175,33 @@ protected:
         
         int const n = Blocksize();
         Array<t_sample,1> vec(InSig(0),n,neverDeleteData);
-        size_t const len = cq->length();
-        data(Range(offset,offset+n-1)) = vec;
-        if(offset < len-n) {
-            data(Range(offset+len,offset+len+n-1)) = vec;
-            offset += n;
-        }
-        else {
-            // wrap around
-            int r = offset-len; // < 0
-            data(Range(offset+len,toEnd)) = vec(Range(0,-r-1));
-            data(Range(0,n-1+r)) = vec(Range(-r,n-1));
-            offset = r+n;
-        }        
+        size_t const dlen = data.size();
 
-        if(rate < 0)
-            tmr.Now(); // trigger analysis
+        if(have+n >= dlen) {
+            // incoming samples don't fit any more
+            // save cqlen+n old samples
+            size_t const svlen = cq->length()+n;
+            FLEXT_ASSERT(svlen >= have);
+            data(Range(0,svlen-1)) = data(Range(have-svlen,have-1));
+            have = svlen;
+        }
+
+        // append incoming signal
+        data(Range(have,have+n-1)) = vec;
+        have += n;
+        
+        if(rate < 0) {
+            int const cqh = cq->hopsize();
+            FLEXT_ASSERT(cqh > 0);
+            while(sigoffs < n) {
+                todo.push_back(sigoffs);
+                sigoffs += cqh;
+            }
+            sigoffs -= n;
+            
+            if(todo.size()) 
+                tmr.Now(); // trigger analysis
+        }
     }
     
     static void print(const Array<t_sample,1> &a)
@@ -198,11 +210,33 @@ protected:
             cerr << a(i) << ' ';
     }
     
-    void m_bang(void * = NULL)
+    void m_timer(void *)
+    {
+        if(todo.size()) {
+            do {
+                work(todo.front());
+                todo.pop_front();
+            } while(todo.size());
+        }
+        else
+            work(0);
+    }
+
+    void m_bang()
+    {
+        work(0);
+    }
+
+    void work(int o)
     {
         if(!cq) return;
     
-        Array<t_sample,1> ref(data,Range(offset,offset+cq->length()-1));
+        int const n = Blocksize();
+        int const cqlen = cq->length();
+        int const base = have-cqlen-n;
+        FLEXT_ASSERT(base >= 0);
+        FLEXT_ASSERT(base+cqlen+o < data.size());
+        Array<t_sample,1> ref(data,Range(base+o,base+o+cqlen-1));
         
         // analyze
         Array<t_sample,1> cqspec(abs((*cq)(ref)));
@@ -225,7 +259,7 @@ protected:
 //            cerr << "res: "; print(cqspec); cerr << endl;
 //            cerr << endl;
         }
-            
+
         if(tmasking) {
             const double bmsk = 10.,fmsk = 100.;  // backward and forward masking times (ms)
             const double thrdb = -30.,mindb = -100.;
@@ -252,6 +286,8 @@ protected:
 
             cqspec *= (cqspec >= mask);
         }
+
+        t_atom aoffs; SetInt(aoffs,o);
         
         if(buf && buf->Ok() && buf->Valid()) {
             // indented block for lock object
@@ -262,7 +298,7 @@ protected:
                 Array<buffer::Element,2> barr(buf->Data(),TinyVector<int,2>(buf->Frames(),buf->Channels()),neverDeleteData);
                 int hi = min(cqspec.size(),buf->Frames());
 #if 0
-                // for whatever reason, this doesn't work with the buffer::Element type
+                // crashes with gcc-4.2.1 (apple llvm)
                 Range rng(0,hi-1);
                 barr(rng,0) = cqspec(rng);
 #else
@@ -272,9 +308,13 @@ protected:
                 buf->Dirty(bufupd);
             }
             // unlocked before bang
+
+            ToOutAnything(GetOutAttr(),sym_offset,1,&aoffs);
             ToOutBang(0);
         }
         else {
+            ToOutAnything(GetOutAttr(),sym_offset,1,&aoffs);
+
             AtomListStatic<256> ret(cqspec.size());
             for(int i = 0; i < ret.Count(); ++i)
                 SetFloat(ret[i],cqspec(i));
@@ -418,7 +458,7 @@ protected:
     
     
     Array<t_sample,1> data;
-    int offset;
+    int have,sigoffs;
     Array<t_sample,1> freqs,qfactors;
     float threshold;
     int wndalign,minhop;
@@ -449,6 +489,7 @@ protected:
     };
 
     std::list<TMem> frmem;
+    std::list<int> todo;
     
 private:
 
@@ -456,12 +497,13 @@ private:
     {
         if(!cq) return;
         
-        int l = cq->length()*2;
-        if(l != data.size()) {
-            data.resize(l);
-            data = 0; 
-            offset = 0;
-        }
+        int const n = Blocksize();
+        int const cqlen = cq->length();
+        int const l = cqlen*2+n;
+        data.resize(l);
+        data = 0; 
+        have = cqlen+n;
+        sigoffs = 0;
     }
 
     void refreshkernel()
@@ -499,8 +541,7 @@ private:
             cq = NULL;            
         delete ocq;
             
-        if(cq && cq->length() != len)
-            resetbuffer();
+        resetbuffer();
         
         // refresh loudness mask
         loud.resize(nfreqs);
@@ -570,13 +611,13 @@ private:
     FLEXT_CALLSET_V(ms_window)
     FLEXT_ATTRGET_V(wndname)
     FLEXT_ATTRVAR_I(minhop)
-    FLEXT_CALLBACK_T(m_bang)
+    FLEXT_CALLBACK_T(m_timer)
     FLEXT_ATTRVAR_B(fmasking)
     FLEXT_ATTRVAR_B(tmasking)
     FLEXT_ATTRVAR_B(loudness)
 };
 
-const t_symbol *constantq::sym_reset;
+const t_symbol *constantq::sym_reset,*constantq::sym_offset;
 const t_symbol *constantq::sym_triangular,*constantq::sym_hamming,*constantq::sym_hann,*constantq::sym_cosine,*constantq::sym_bartlett,*constantq::sym_blackman;
 
 FLEXT_NEW_DSP("constantq~",constantq)

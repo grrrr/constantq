@@ -1,7 +1,7 @@
-#N canvas 599 24 761 876 10;
+#N canvas 220 131 761 876 10;
 #X obj 47 18 cnv 15 650 60 empty empty constantq~ 20 18 0 24 -260818
 -66577 0;
-#X msg 50 123 \; pd dsp 1;
+#X msg 51 123 \; pd dsp 1;
 #X text 51 107 ON;
 #X obj 51 176 adc~;
 #X text 65 54 (c)2008-2009 gr@grrrr.org;
@@ -59,25 +59,25 @@
 #X obj 47 624 cnv 15 650 200 empty empty empty 20 18 0 18 -233017 -66577
 0;
 #X obj 57 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10 -262144
--1 -1 1734 1;
+-1 -1 0 1;
 #X obj 75 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10 -262144
--1 -1 3026 1;
+-1 -1 0 1;
 #X obj 93 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10 -262144
--1 -1 3364 1;
+-1 -1 0 1;
 #X obj 111 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10
--262144 -1 -1 2971 1;
+-262144 -1 -1 0 1;
 #X obj 129 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10
--262144 -1 -1 2064 1;
+-262144 -1 -1 0 1;
 #X obj 147 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10
--262144 -1 -1 1676 1;
+-262144 -1 -1 0 1;
 #X obj 165 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10
--262144 -1 -1 1067 1;
+-262144 -1 -1 0 1;
 #X obj 183 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10
 -262144 -1 -1 0 1;
 #X obj 201 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10
--262144 -1 -1 2588 1;
+-262144 -1 -1 0 1;
 #X obj 219 674 vsl 15 128 0.0001 1 1 0 empty empty empty 0 -9 0 10
--262144 -1 -1 1575 1;
+-262144 -1 -1 0 1;
 #X obj 409 664 bng 15 250 50 0 empty empty empty 0 -8 0 10 -262144
 -1 -1;
 #X msg 429 685 rate \$1;
@@ -115,7 +115,7 @@
 #X obj 179 341 hsl 128 15 -1 1 0 1 empty empty empty -2 -8 0 10 -262144
 -1 -1 6350 1;
 #X floatatom 271 361 5 0 0 0 - - -;
-#N canvas 89 549 465 351 more 1;
+#N canvas 89 549 465 351 more 0;
 #X obj 64 276 s \$0-cq;
 #X msg 149 240 reset;
 #X msg 65 95 logfrqs 50 15000 12;
@@ -155,7 +155,7 @@
 1;
 #X msg 594 553 tmasking \$1;
 #X obj 57 629 spigot;
-#X obj 105 630 tgl 15 0 empty empty on 17 7 0 10 -262144 -1 -1 1 1
+#X obj 105 630 tgl 15 0 empty empty on 17 7 0 10 -262144 -1 -1 0 1
 ;
 #X obj 146 610 list length;
 #X floatatom 146 629 5 0 0 0 - - -;
