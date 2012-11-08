@@ -10,6 +10,8 @@ $LastChangedDate$
 $LastChangedBy$
 */
 
+#define CQ_VERSION "0.2"
+
 #define FLEXT_ATTRIBUTES 1
 
 #include <flext.h>
@@ -49,10 +51,16 @@ template<typename T>
 static T bark2hz(T b) { return (exp(b/6.)-exp(b/-6.))*300.; }
 
 template<typename T>
-static T hz2mel(T f) { return hz2bark(f)*100.; }
+static T hz2mel(T f) {
+    // \cite{shannon:2003}
+    return log10(f/100.+1.)*2595.;
+}
 
 template<typename T>
-static T mel2hz(T m) { return bark2hz(m/100.); }
+static T mel2hz(T m) {
+    // \cite{shannon:2003}
+    return (pow(10.,m/2595.)-1.)*100.;
+}
 
 template<typename T>
 static T terhardt(T fhz)
@@ -119,7 +127,7 @@ protected:
 
     static void setup(t_classid c)
     {
-        post("constantq~ - spectral analysis");
+        post("constantq~ - spectral analysis, version " CQ_VERSION);
         post("(c)2008-2012 grrrr.org");
     #ifdef FLEXT_DEBUG
         post("Debug version, compiled on " __DATE__ " " __TIME__);
@@ -142,8 +150,10 @@ protected:
         FLEXT_CADDATTR_VAR(c,"buffer",mg_buffer,ms_buffer);
         FLEXT_CADDATTR_VAR1(c,"bufupd",bufupd);
         FLEXT_CADDATTR_VAR(c,"frqs",mg_frqs,ms_frqs);
-        FLEXT_CADDMETHOD_(c,0,"logfrqs",m_logfrqs);
-        FLEXT_CADDMETHOD_(c,0,"melfrqs",m_melfrqs);
+        FLEXT_CADDMETHOD_3(c,0,"logfrqs",m_logfrqs,float,float,int);
+        FLEXT_CADDMETHOD_(c,0,"octfrqs",m_octfrqs);
+        FLEXT_CADDMETHOD_3(c,0,"melfrqs",m_melfrqs,float,float,int);
+        FLEXT_CADDMETHOD_(c,0,"barkfrqs",m_barkfrqs);
         FLEXT_CADDATTR_VAR(c,"q",mg_qfactors,ms_qfactors);
         FLEXT_CADDATTR_VAR1(c,"threshold",threshold);
         FLEXT_CADDATTR_GET(c,"granularity",mg_granularity);
@@ -340,13 +350,37 @@ protected:
             SetFloat(l[i],freqs(i));
     }
     
-    void m_logfrqs(int argc,const t_atom *argv)
+    void m_logfrqs(float fmin,float fmax,int bnds)
     {
-        if(argc < 2) return;
+        if(fmin >= fmax || bnds <= 1)
+            // TODO error message
+            return;
+
+        float lmin = log(fmin)/M_LN2;
+        float lmax = log(fmax)/M_LN2;
+        float odiv = (bnds-1)/(lmax-lmin);
+        float pow2n = pow(2,1./odiv);
+
+        freqs.resize(bnds);
+        qfactors.resize(bnds);
+        for(int b = 0; b < bnds; ++b)
+            freqs(b) = pow(pow2n,b)*fmin;
+        qfactors = sqrt(pow2n)/(pow2n-1.);
+    }
+    
+    void m_octfrqs(int argc,const t_atom *argv)
+    {
+        if(argc < 2)
+            // TODO error message
+            return;
+        
         float fmin = GetAFloat(argv[0]);
         float fmax = GetAFloat(argv[1]);
         int odiv = argc >= 3?GetAInt(argv[2]):12;
-        if(fmin >= fmax || odiv <= 0) return;
+
+        if(fmin >= fmax || odiv < 0)
+            // TODO error message
+            return;
 
         float lmin = log(fmin)/M_LN2;
         float lmax = log(fmax)/M_LN2;
@@ -360,16 +394,38 @@ protected:
         qfactors = sqrt(pow2n)/(pow2n-1.);
     }
     
-    void m_melfrqs(float res)
+    void m_melfrqs(float fmin,float fmax,int bnds)
     {
-        if(!res) res = 1;
+        if(fmin >= fmax || bnds <= 1)
+            // TODO error message
+            return;
+            
+        float mmin = hz2mel(fmin);
+        float mmax = hz2mel(fmax);
+        float mdiv = (mmax-mmin)/(bnds-1);
     
-        int bnds = int(25./res+0.5);
         freqs.resize(bnds);
         qfactors.resize(bnds);
 
         for(int b = 0; b < bnds; ++b) {
-            float bark = res*(b+0.5);
+            float m = mmin+mdiv*b;
+            freqs(b) = mel2hz(m);
+            float odiv = (exp(m/-1127.)-1.)*(-781.177/mdiv);
+            float pow2n = pow(2.,1./odiv);
+            qfactors(b) = sqrt(pow2n)/(pow2n-1.);
+        }
+    }
+    
+    void m_barkfrqs(int argc,const t_atom *argv)
+    {
+        float res = argc?GetAFloat(argv[0]):1;
+    
+        int bnds = int(24*res+0.5);
+        freqs.resize(bnds);
+        qfactors.resize(bnds);
+
+        for(int b = 0; b < bnds; ++b) {
+            float bark = (b+0.5)/res;
             freqs(b) = bark2hz(bark);
             float odiv = tanh(bark/6.)*(log(64.)/res);
             float pow2n = pow(2.,1./odiv);
@@ -596,8 +652,10 @@ private:
     FLEXT_CALLBACK(m_reset)
     FLEXT_CALLBACK_V(m_frqs)
     FLEXT_CALLVAR_V(mg_frqs,ms_frqs)
-    FLEXT_CALLBACK_V(m_logfrqs)
-    FLEXT_CALLBACK_F(m_melfrqs)
+    FLEXT_CALLBACK_3(m_logfrqs,float,float,int)
+    FLEXT_CALLBACK_V(m_octfrqs)
+    FLEXT_CALLBACK_3(m_melfrqs,float,float,int)
+    FLEXT_CALLBACK_V(m_barkfrqs)
     FLEXT_CALLBACK_V(m_qfactors)
     FLEXT_CALLVAR_V(mg_qfactors,ms_qfactors)
     FLEXT_CALLVAR_V(mg_buffer,ms_buffer)

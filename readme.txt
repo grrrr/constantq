@@ -75,3 +75,7 @@ bash ../flext/build.sh
 
 Version history:
 
+0.2 - changed methods for frequency scales: actually INCOMPATIBLE to version 0.1 
+
+0.1 - first release
+
