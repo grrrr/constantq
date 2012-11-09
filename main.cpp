@@ -241,7 +241,6 @@ protected:
     {
         if(!cq) return;
     
-        int const n = Blocksize();
         int const cqlen = cq->length();
         int const base = have-cqlen;
         FLEXT_ASSERT(base >= 0);
@@ -261,13 +260,7 @@ protected:
                 mask(i) = sum(fmask(i,r)*cqspec(r));
             }
 
-//            cerr << "cq: "; print(cqspec); cerr << endl;
-//            cerr << "mask: "; print(mask); cerr << endl;
-
             cqspec *= (cqspec >= mask);
-
-//            cerr << "res: "; print(cqspec); cerr << endl;
-//            cerr << endl;
         }
 
         if(tmasking) {
@@ -564,7 +557,6 @@ private:
 
     void refreshkernel()
     {
-        int len = cq?cq->length():0;
         int i,j;
         ConstantQ<t_sample,BANDED> *ocq = cq;        
         const int nfreqs = freqs.length(0);
