@@ -7,24 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E90C39110E05B3FC00E8F317 /* constantq.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E90C39100E05B3FC00E8F317 /* constantq.hpp */; };
+		E927EE03164D163E0058AD07 /* constantq.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E927EDFD164D163E0058AD07 /* constantq.hpp */; };
+		E927EE04164D163E0058AD07 /* fastexp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E927EDFE164D163E0058AD07 /* fastexp.hpp */; };
+		E927EE05164D163E0058AD07 /* fft.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E927EDFF164D163E0058AD07 /* fft.hpp */; };
+		E927EE06164D163E0058AD07 /* mfcc.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E927EE00164D163E0058AD07 /* mfcc.hpp */; };
+		E927EE07164D163E0058AD07 /* som.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E927EE01164D163E0058AD07 /* som.hpp */; };
+		E927EE08164D163E0058AD07 /* window.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E927EE02164D163E0058AD07 /* window.hpp */; };
 		E98573340D9E51A800682171 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E98573330D9E51A800682171 /* main.cpp */; };
 		E98573350D9E51A800682171 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E98573330D9E51A800682171 /* main.cpp */; };
 		E98573D00D9E603400682171 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E98573CF0D9E603400682171 /* libfftw3f.a */; };
 		E98573D10D9E603500682171 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E98573CF0D9E603400682171 /* libfftw3f.a */; };
 		E98C3077078D948800EC0264 /* vecLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E98C3076078D948800EC0264 /* vecLib.framework */; };
 		E98C3078078D948800EC0264 /* vecLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E98C3076078D948800EC0264 /* vecLib.framework */; };
-		E99346B30F6342A700300732 /* fft.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E99346B10F6342A700300732 /* fft.hpp */; };
-		E99346B40F6342A700300732 /* window.hpp in Headers */ = {isa = PBXBuildFile; fileRef = E99346B20F6342A700300732 /* window.hpp */; };
 		E9974E5B0770851500206F68 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9974DFA0770750400206F68 /* MaxAPI.framework */; };
 		E9974E5C0770851700206F68 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9974DFB0770750400206F68 /* MaxAudioAPI.framework */; };
 		E99A3B770D35508600E692EF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99A3B760D35508600E692EF /* Info.plist */; };
-		E9E8B1ED14366F4E008F12F7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E99A3B760D35508600E692EF /* Info.plist */; };
-		E9E8B1F014366F4E008F12F7 /* main_msg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E9E8B1C214366B7B008F12F7 /* main_msg.cpp */; };
-		E9E8B1F214366F4E008F12F7 /* MaxAudioAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9974DFB0770750400206F68 /* MaxAudioAPI.framework */; };
-		E9E8B1F314366F4E008F12F7 /* MaxAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9974DFA0770750400206F68 /* MaxAPI.framework */; };
-		E9E8B1F414366F4E008F12F7 /* vecLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E98C3076078D948800EC0264 /* vecLib.framework */; };
-		E9E8B1F514366F4E008F12F7 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E98573CF0D9E603400682171 /* libfftw3f.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,32 +34,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		E9E8B1F614366F4E008F12F7 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = "/Library/Application Support/Cycling '74/init";
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D2AAC09D05546B4700DB518D /* constantq~.pd_darwin */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "constantq~.pd_darwin"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E90C39100E05B3FC00E8F317 /* constantq.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = constantq.hpp; path = "../../projects/audiofeatures++/constantq.hpp"; sourceTree = SOURCE_ROOT; };
+		E927EDFD164D163E0058AD07 /* constantq.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = constantq.hpp; sourceTree = "<group>"; };
+		E927EDFE164D163E0058AD07 /* fastexp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fastexp.hpp; sourceTree = "<group>"; };
+		E927EDFF164D163E0058AD07 /* fft.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fft.hpp; sourceTree = "<group>"; };
+		E927EE00164D163E0058AD07 /* mfcc.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mfcc.hpp; sourceTree = "<group>"; };
+		E927EE01164D163E0058AD07 /* som.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = som.hpp; sourceTree = "<group>"; };
+		E927EE02164D163E0058AD07 /* window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = window.hpp; sourceTree = "<group>"; };
 		E98573330D9E51A800682171 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E98573CF0D9E603400682171 /* libfftw3f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3f.a; path = /usr/local/lib/libfftw3f.a; sourceTree = "<absolute>"; };
 		E98C3076078D948800EC0264 /* vecLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = vecLib.framework; path = /System/Library/Frameworks/vecLib.framework; sourceTree = "<absolute>"; };
-		E99346B10F6342A700300732 /* fft.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fft.hpp; path = "../../projects/audiofeatures++/fft.hpp"; sourceTree = SOURCE_ROOT; };
-		E99346B20F6342A700300732 /* window.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = window.hpp; path = "../../projects/audiofeatures++/window.hpp"; sourceTree = SOURCE_ROOT; };
 		E9974DFA0770750400206F68 /* MaxAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAPI.framework; path = /Library/Frameworks/MaxAPI.framework; sourceTree = "<absolute>"; };
 		E9974DFB0770750400206F68 /* MaxAudioAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MaxAudioAPI.framework; path = /Library/Frameworks/MaxAudioAPI.framework; sourceTree = "<absolute>"; };
 		E9974E53077083C700206F68 /* constantq~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "constantq~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99A3B760D35508600E692EF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9E8B1C214366B7B008F12F7 /* main_msg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main_msg.cpp; sourceTree = "<group>"; };
-		E9E8B1FB14366F4E008F12F7 /* constantq~.mxo */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "constantq~.mxo"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9E8B1FC14366F4E008F12F7 /* Info msg.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info msg.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,17 +74,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9E8B1F114366F4E008F12F7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E9E8B1F214366F4E008F12F7 /* MaxAudioAPI.framework in Frameworks */,
-				E9E8B1F314366F4E008F12F7 /* MaxAPI.framework in Frameworks */,
-				E9E8B1F414366F4E008F12F7 /* vecLib.framework in Frameworks */,
-				E9E8B1F514366F4E008F12F7 /* libfftw3f.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -105,7 +82,6 @@
 			children = (
 				D2AAC09D05546B4700DB518D /* constantq~.pd_darwin */,
 				E9974E53077083C700206F68 /* constantq~.mxo */,
-				E9E8B1FB14366F4E008F12F7 /* constantq~.mxo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,15 +110,24 @@
 		08FB77ACFE841707C02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E99346B10F6342A700300732 /* fft.hpp */,
-				E99346B20F6342A700300732 /* window.hpp */,
-				E90C39100E05B3FC00E8F317 /* constantq.hpp */,
+				E927EDFC164D163E0058AD07 /* headers */,
 				E99A3B760D35508600E692EF /* Info.plist */,
 				E98573330D9E51A800682171 /* main.cpp */,
-				E9E8B1C214366B7B008F12F7 /* main_msg.cpp */,
-				E9E8B1FC14366F4E008F12F7 /* Info msg.plist */,
 			);
 			name = Source;
+			sourceTree = "<group>";
+		};
+		E927EDFC164D163E0058AD07 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				E927EDFD164D163E0058AD07 /* constantq.hpp */,
+				E927EDFE164D163E0058AD07 /* fastexp.hpp */,
+				E927EDFF164D163E0058AD07 /* fft.hpp */,
+				E927EE00164D163E0058AD07 /* mfcc.hpp */,
+				E927EE01164D163E0058AD07 /* som.hpp */,
+				E927EE02164D163E0058AD07 /* window.hpp */,
+			);
+			path = headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,9 +137,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E90C39110E05B3FC00E8F317 /* constantq.hpp in Headers */,
-				E99346B30F6342A700300732 /* fft.hpp in Headers */,
-				E99346B40F6342A700300732 /* window.hpp in Headers */,
+				E927EE03164D163E0058AD07 /* constantq.hpp in Headers */,
+				E927EE04164D163E0058AD07 /* fastexp.hpp in Headers */,
+				E927EE05164D163E0058AD07 /* fft.hpp in Headers */,
+				E927EE06164D163E0058AD07 /* mfcc.hpp in Headers */,
+				E927EE07164D163E0058AD07 /* som.hpp in Headers */,
+				E927EE08164D163E0058AD07 /* window.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,9 +166,9 @@
 			productReference = D2AAC09D05546B4700DB518D /* constantq~.pd_darwin */;
 			productType = "com.apple.product-type.library.dynamic";
 		};
-		E9974E52077083C700206F68 /* max static dsp */ = {
+		E9974E52077083C700206F68 /* max static */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E9A5BC8E0A33819900AD9F03 /* Build configuration list for PBXNativeTarget "max static dsp" */;
+			buildConfigurationList = E9A5BC8E0A33819900AD9F03 /* Build configuration list for PBXNativeTarget "max static" */;
 			buildPhases = (
 				E9974E4F077083C700206F68 /* Resources */,
 				E9974E50077083C700206F68 /* Sources */,
@@ -191,27 +179,9 @@
 			);
 			dependencies = (
 			);
-			name = "max static dsp";
+			name = "max static";
 			productName = "Max xsample static";
 			productReference = E9974E53077083C700206F68 /* constantq~.mxo */;
-			productType = "com.apple.product-type.bundle";
-		};
-		E9E8B1EB14366F4E008F12F7 /* max static msg */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E9E8B1F714366F4E008F12F7 /* Build configuration list for PBXNativeTarget "max static msg" */;
-			buildPhases = (
-				E9E8B1EC14366F4E008F12F7 /* Resources */,
-				E9E8B1EE14366F4E008F12F7 /* Sources */,
-				E9E8B1F114366F4E008F12F7 /* Frameworks */,
-				E9E8B1F614366F4E008F12F7 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "max static msg";
-			productName = "Max xsample static";
-			productReference = E9E8B1FB14366F4E008F12F7 /* constantq~.mxo */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -232,8 +202,7 @@
 			projectRoot = "";
 			targets = (
 				D2AAC09C05546B4700DB518D /* pd static */,
-				E9974E52077083C700206F68 /* max static dsp */,
-				E9E8B1EB14366F4E008F12F7 /* max static msg */,
+				E9974E52077083C700206F68 /* max static */,
 			);
 		};
 /* End PBXProject section */
@@ -244,14 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E99A3B770D35508600E692EF /* Info.plist in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E9E8B1EC14366F4E008F12F7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E9E8B1ED14366F4E008F12F7 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,14 +235,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E9E8B1EE14366F4E008F12F7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E9E8B1F014366F4E008F12F7 /* main_msg.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -298,16 +251,15 @@
 					"$(inherited)",
 					"FLEXT_SYS=2",
 				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PD-devel)/src",
-					/usr/local/include/flext,
+					"$(PD)",
 				);
-				INSTALL_PATH = "$(PD)/extra";
+				INSTALL_PATH = /Applications/pdext;
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = BUNDLE;
 				MACH_O_TYPE = mh_dylib;
-				MACOSX_DEPLOYMENT_TARGET = 10.3;
 				OTHER_LDFLAGS = (
 					"-lflext-pd_sd",
 					"-undefined",
@@ -331,17 +283,11 @@
 					"$(inherited)",
 					"FLEXT_SYS=2",
 				);
-				GCC_VERSION = 4.2;
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PD)/src",
-					"$(flext)/source",
-				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INSTALL_PATH = /Applications/pdext;
 				LIBRARY_SEARCH_PATHS = "$(flext)/build";
 				LIBRARY_STYLE = BUNDLE;
 				MACH_O_TYPE = mh_dylib;
-				MACOSX_DEPLOYMENT_TARGET = 10.3;
 				OTHER_LDFLAGS = (
 					"-lflext-pd_s",
 					"-undefined",
@@ -360,11 +306,12 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
 				GCC_PREPROCESSOR_DEFINITIONS = "FLEXT_SYS=2";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
-					"$(PDApp)/src",
-					"$(flext)/source",
+					"$(inherited)",
+					"$(PD)",
 				);
-				INSTALL_PATH = "$(PD)/extra";
+				INSTALL_PATH = /Applications/pdext;
 				LIBRARY_SEARCH_PATHS = "$(flext)/build";
 				LIBRARY_STYLE = BUNDLE;
 				MACH_O_TYPE = mh_bundle;
@@ -386,21 +333,22 @@
 					"$(inherited)",
 					"FLEXT_SYS=1",
 				);
-				GCC_VERSION = 4.0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
+					$inherited,
 					"$(maxsdk)/max-includes",
 					"$(maxsdk)/msp-includes",
-					"$(flext)/source",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_PREPROCESS = YES;
-				INSTALL_PATH = "/Library/Application Support/Cycling 74/externals/flext";
-				LIBRARY_SEARCH_PATHS = "$(flext)/build";
+				INSTALL_PATH = "/Library/Application Support/Cycling '74/ext";
+				LIBRARY_SEARCH_PATHS = $inherited;
 				LIBRARY_STYLE = DYNAMIC;
 				OTHER_LDFLAGS = "-lflext-max_sd";
 				OTHER_REZFLAGS = "";
 				SECTORDER_FLAGS = "";
+				VALID_ARCHS = i386;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -419,20 +367,22 @@
 					"$(inherited)",
 					"FLEXT_SYS=1",
 				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
+					$inherited,
 					"$(maxsdk)/max-includes",
 					"$(maxsdk)/msp-includes",
-					"$(flext)/source",
 				);
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_PREPROCESS = YES;
-				INSTALL_PATH = "/Library/Application Support/Cycling 74/externals/flext";
-				LIBRARY_SEARCH_PATHS = "$(flext)/build";
+				INSTALL_PATH = "/Library/Application Support/Cycling '74/ext";
+				LIBRARY_SEARCH_PATHS = $inherited;
 				LIBRARY_STYLE = DYNAMIC;
 				OTHER_LDFLAGS = "-lflext-max_s";
 				OTHER_REZFLAGS = "";
 				SECTORDER_FLAGS = "";
+				VALID_ARCHS = i386;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -447,20 +397,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = "FLEXT_SYS=1";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GENERATE_PKGINFO_FILE = YES;
 				HEADER_SEARCH_PATHS = (
+					$inherited,
 					"$(maxsdk)/max-includes",
 					"$(maxsdk)/msp-includes",
-					"$(flext)/source",
 				);
 				INFOPLIST_FILE = "source/xsample-Info.plist";
-				INSTALL_PATH = "/Library/Application Support/Cycling 74/externals/flext";
-				LIBRARY_SEARCH_PATHS = "$(flext)/build";
+				INSTALL_PATH = "/Library/Application Support/Cycling '74/ext";
+				LIBRARY_SEARCH_PATHS = $inherited;
 				LIBRARY_STYLE = DYNAMIC;
 				OTHER_CFLAGS = "";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = xsample;
 				SECTORDER_FLAGS = "";
+				VALID_ARCHS = i386;
 				WARNING_CFLAGS = (
 					"-Wmost",
 					"-Wno-four-char-constants",
@@ -482,10 +434,12 @@
 					FLEXT_USE_SIMD,
 					FLEXT_USE_CMEM,
 				);
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = (
-					"/Users/thomas/Develop/projects/audiofeatures++",
-					"/Users/thomas/Develop/packs/blitz-0.9",
+					/opt/local/include,
+					/usr/local/include/flext,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = "constantq~";
 			};
 			name = Development;
@@ -513,9 +467,12 @@
 				);
 				GCC_STRICT_ALIASING = YES;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = 4.2;
-				HEADER_SEARCH_PATHS = "/Users/thomas/Develop/projects/audiofeatures++";
-				INSTALL_PATH = "/Library/Application Support/Cycling '74/externals/flext";
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				HEADER_SEARCH_PATHS = (
+					/opt/local/include,
+					/usr/local/include/flext,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PRODUCT_NAME = "constantq~";
 				STRIP_INSTALLED_PRODUCT = NO;
 			};
@@ -524,106 +481,14 @@
 		E9A5BC950A33819900AD9F03 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				HEADER_SEARCH_PATHS = (
-					"/Users/thomas/Develop/projects/audiofeatures++",
-					"/Users/thomas/Develop/packs/blitz-0.9",
+					/opt/local/include,
+					/usr/local/include/flext,
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				OTHER_LDFLAGS = "-lfftwf3";
 				PRODUCT_NAME = "$(PROJECT_NAME)";
-			};
-			name = Default;
-		};
-		E9E8B1F814366F4E008F12F7 /* Development */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FLEXT_SYS=1",
-				);
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(maxsdk)/max-includes",
-					"$(maxsdk)/msp-includes",
-					"$(flext)/source",
-				);
-				INFOPLIST_FILE = "Info msg.plist";
-				INFOPLIST_PREPROCESS = YES;
-				INSTALL_PATH = "/Library/Application Support/Cycling 74/externals/flext";
-				LIBRARY_SEARCH_PATHS = "$(flext)/build";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_LDFLAGS = "-lflext-max_sd";
-				OTHER_REZFLAGS = "";
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = mxo;
-				ZERO_LINK = YES;
-			};
-			name = Development;
-		};
-		E9E8B1F914366F4E008F12F7 /* Deployment */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"FLEXT_SYS=1",
-				);
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(maxsdk)/max-includes",
-					"$(maxsdk)/msp-includes",
-					"$(flext)/source",
-				);
-				INFOPLIST_FILE = "Info msg.plist";
-				INFOPLIST_PREPROCESS = YES;
-				INSTALL_PATH = "/Library/Application Support/Cycling 74/externals/flext";
-				LIBRARY_SEARCH_PATHS = "$(flext)/build";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_LDFLAGS = "-lflext-max_s";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = constantq;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = mxo;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-		E9E8B1FA14366F4E008F12F7 /* Default */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "FLEXT_SYS=1";
-				GENERATE_PKGINFO_FILE = YES;
-				HEADER_SEARCH_PATHS = (
-					"$(maxsdk)/max-includes",
-					"$(maxsdk)/msp-includes",
-					"$(flext)/source",
-				);
-				INFOPLIST_FILE = "Info msg.plist";
-				INSTALL_PATH = "/Library/Application Support/Cycling 74/externals/flext";
-				LIBRARY_SEARCH_PATHS = "$(flext)/build";
-				LIBRARY_STYLE = DYNAMIC;
-				OTHER_CFLAGS = "";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = xsample;
-				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = (
-					"-Wmost",
-					"-Wno-four-char-constants",
-					"-Wno-unknown-pragmas",
-				);
-				WRAPPER_EXTENSION = mxo;
 			};
 			name = Default;
 		};
@@ -640,7 +505,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
 		};
-		E9A5BC8E0A33819900AD9F03 /* Build configuration list for PBXNativeTarget "max static dsp" */ = {
+		E9A5BC8E0A33819900AD9F03 /* Build configuration list for PBXNativeTarget "max static" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9A5BC8F0A33819900AD9F03 /* Development */,
@@ -656,16 +521,6 @@
 				E9A5BC930A33819900AD9F03 /* Development */,
 				E9A5BC940A33819900AD9F03 /* Deployment */,
 				E9A5BC950A33819900AD9F03 /* Default */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
-		};
-		E9E8B1F714366F4E008F12F7 /* Build configuration list for PBXNativeTarget "max static msg" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E9E8B1F814366F4E008F12F7 /* Development */,
-				E9E8B1F914366F4E008F12F7 /* Deployment */,
-				E9E8B1FA14366F4E008F12F7 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
