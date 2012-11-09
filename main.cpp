@@ -10,7 +10,7 @@ $LastChangedDate$
 $LastChangedBy$
 */
 
-#define CQ_VERSION "0.2"
+#define CQ_VERSION "0.3"
 
 #define FLEXT_ATTRIBUTES 1
 
@@ -100,7 +100,7 @@ public:
     constantq()
         : cq(NULL),have(0),sigoffs(0)
         , threshold(0.001),wndalign(1),minhop(0)
-        , srate(Samplerate()),rate(-1)
+        , srate(Samplerate()),rate(0)
         , buf(NULL),bufupd(true)
         , window(NULL)
         , fmasking(false),tmasking(false),loudness(false)
@@ -191,7 +191,7 @@ protected:
             // incoming samples don't fit any more
             // save cqlen+n old samples
             size_t const svlen = cq->length()+n;
-            FLEXT_ASSERT(svlen >= have);
+            FLEXT_ASSERT(svlen <= have);
             data(Range(0,svlen-1)) = data(Range(have-svlen,have-1));
             have = svlen;
         }
@@ -243,7 +243,7 @@ protected:
     
         int const n = Blocksize();
         int const cqlen = cq->length();
-        int const base = have-cqlen-n;
+        int const base = have-cqlen;
         FLEXT_ASSERT(base >= 0);
         FLEXT_ASSERT(base+cqlen+o < data.size());
         Array<t_sample,1> ref(data,Range(base+o,base+o+cqlen-1));
